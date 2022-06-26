@@ -16,7 +16,6 @@
             <asp:HiddenField ID="DepartmentID" runat="server" Value="<%#Item.ID %>" />
       <td><asp:Label ID="StudentCount" runat="server"></asp:Label></td>
     </tr>
-
           </ItemTemplate>
       </asp:ListView>
    

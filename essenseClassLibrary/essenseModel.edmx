@@ -4,13 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="essensetestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="essensetestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Courses">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Course_Preid" Type="int" />
           <Property Name="Department_ID" Type="int" />
           <Property Name="Course_Name" Type="nvarchar(max)" />
           <Property Name="Course_Code" Type="nvarchar(max)" />
@@ -27,8 +26,17 @@
           <Property Name="languageID" Type="int" />
           <Property Name="IsDeleted" Type="bit" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'essensetest.dbo.Prerequisite' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Prerequisite">
+          <Key>
+            <PropertyRef Name="course_id" />
+          </Key>
+          <Property Name="course_id" Type="int" Nullable="false" />
+          <Property Name="prerequisite_course_id" Type="int" />
+          <Property Name="languageID" Type="int" />
+        </EntityType>
         <Function Name="InsertCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Course_Preid" Type="int" Mode="In" />
           <Parameter Name="Department_ID" Type="int" Mode="In" />
           <Parameter Name="Course_Name" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Course_Code" Type="nvarchar(max)" Mode="In" />
@@ -41,48 +49,54 @@
           <Parameter Name="languageId" Type="int" Mode="In" />
           <Parameter Name="isdeleted" Type="bit" Mode="In" />
         </Function>
+        <Function Name="InsertPrerequisite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="course_id" Type="int" Mode="In" />
+          <Parameter Name="prerequisite_course_id" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="languageID" Type="int" Mode="In" />
+        </Function>
         <Function Name="SelectAllCoursesBylanugaeID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LanguageID" Type="int" Mode="In" />
         </Function>
+        <Function Name="SelectAllCoursesjoinByylanugaeID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LanguageID" Type="int" Mode="In" />
+        </Function>
         <Function Name="SelectAllDepartmentByLanguageID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="LanguageId" Type="int" Mode="In" />
+          <Parameter Name="LanguageID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SelectAllselfjoinCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LanguageID" Type="int" Mode="In" />
+          <Parameter Name="Course_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="updateCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="Course_Preid" Type="int" Mode="In" />
+          <Parameter Name="Department_ID" Type="int" Mode="In" />
+          <Parameter Name="Course_Name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Course_Code" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Course_Description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IsDeleted" Type="bit" Mode="In" />
+          <Parameter Name="languageID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="essensetestModelStoreContainer">
           <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prerequisite" EntityType="Self.Prerequisite" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Prerequisite].[course_id] AS [course_id], 
+[Prerequisite].[prerequisite_course_id] AS [prerequisite_course_id], 
+[Prerequisite].[languageID] AS [languageID]
+FROM [dbo].[Prerequisite] AS [Prerequisite]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="essensetestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Cours">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Course_Preid" Type="Int32" />
-          <Property Name="Department_ID" Type="Int32" />
-          <Property Name="Course_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Course_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Course_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <Property Name="languageID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Department">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Department_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="languageID" Type="Int32" />
-          <Property Name="IsDeleted" Type="Boolean" />
-        </EntityType>
         <EntityContainer Name="essensetestEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Courses" EntityType="Self.Cours" />
-          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Courses" EntityType="essensetestModel.Cours" />
+          <EntitySet Name="Departments" EntityType="essensetestModel.Department" />
+          <EntitySet Name="Prerequisites" EntityType="essensetestModel.Prerequisite" />
           <FunctionImport Name="InsertCourses">
-            <Parameter Name="Course_Preid" Mode="In" Type="Int32" />
             <Parameter Name="Department_ID" Mode="In" Type="Int32" />
             <Parameter Name="Course_Name" Mode="In" Type="String" />
             <Parameter Name="Course_Code" Mode="In" Type="String" />
@@ -95,11 +109,33 @@
             <Parameter Name="languageId" Mode="In" Type="Int32" />
             <Parameter Name="isdeleted" Mode="In" Type="Boolean" />
           </FunctionImport>
-          <FunctionImport Name="SelectAllCoursesBylanugaeID" ReturnType="Collection(essensetestModel.SelectAllCoursesBylanugaeID_Result)">
+          <FunctionImport Name="InsertPrerequisite">
+            <Parameter Name="course_id" Mode="In" Type="Int32" />
+            <Parameter Name="prerequisite_course_id" Mode="In" Type="String" />
+            <Parameter Name="languageID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SelectAllCoursesBylanugaeID" ReturnType="Collection(essensetestModel.SelectAllCoursesBylanugaeID_Result3)">
             <Parameter Name="LanguageID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SelectAllDepartmentByLanguageID" ReturnType="Collection(essensetestModel.SelectAllDepartmentByLanguageID_Result)">
-            <Parameter Name="LanguageId" Mode="In" Type="Int32" />
+          <FunctionImport Name="SelectAllCoursesjoinByylanugaeID" ReturnType="Collection(essensetestModel.SelectAllCoursesjoinByylanugaeID_Result3)">
+            <Parameter Name="LanguageID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SelectAllDepartmentByLanguageID" ReturnType="Collection(essensetestModel.SelectAllDepartmentByLanguageID_Result3)">
+            <Parameter Name="LanguageID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SelectAllselfjoinCourses">
+            <Parameter Name="LanguageID" Mode="In" Type="Int32" />
+            <Parameter Name="Course_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="updateCourses">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="Course_Preid" Mode="In" Type="Int32" />
+            <Parameter Name="Department_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Course_Name" Mode="In" Type="String" />
+            <Parameter Name="Course_Code" Mode="In" Type="String" />
+            <Parameter Name="Course_Description" Mode="In" Type="String" />
+            <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
+            <Parameter Name="languageID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SelectAllCoursesBylanugaeID_Result">
@@ -118,43 +154,180 @@
           <Property Type="Int32" Name="languageID" Nullable="true" />
           <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="SelectAllCoursesjoinByylanugaeID_Result">
+          <Property Type="String" Name="course_name" Nullable="true" />
+          <Property Type="String" Name="course_name1" Nullable="true" />
+          <Property Type="Int32" Name="prerequisite_course_id" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectAllCoursesBylanugaeID1_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="Department_ID" Nullable="true" />
+          <Property Type="String" Name="Course_Name" Nullable="true" />
+          <Property Type="String" Name="Course_Code" Nullable="true" />
+          <Property Type="String" Name="Course_Description" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectAllCoursesjoinByylanugaeID1_Result">
+          <Property Type="String" Name="course_name" Nullable="true" />
+          <Property Type="String" Name="course_name1" Nullable="true" />
+          <Property Type="Int32" Name="prerequisite_course_id" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectAllDepartmentByLanguageID1_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Department_Name" Nullable="true" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectAllCoursesBylanugaeID_Result1">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="Department_ID" Nullable="true" />
+          <Property Type="String" Name="Course_Name" Nullable="true" />
+          <Property Type="String" Name="Course_Code" Nullable="true" />
+          <Property Type="String" Name="Course_Description" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectAllCoursesjoinByylanugaeID_Result1">
+          <Property Type="String" Name="course_name" Nullable="true" />
+          <Property Type="String" Name="course_name1" Nullable="true" />
+          <Property Type="Int32" Name="prerequisite_course_id" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectAllDepartmentByLanguageID_Result1">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Department_Name" Nullable="true" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectAllCoursesBylanugaeID_Result2">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="Department_ID" Nullable="true" />
+          <Property Type="String" Name="Course_Name" Nullable="true" />
+          <Property Type="String" Name="Course_Code" Nullable="true" />
+          <Property Type="String" Name="Course_Description" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectAllCoursesjoinByylanugaeID_Result2">
+          <Property Type="String" Name="course_name" Nullable="true" />
+          <Property Type="String" Name="course_name1" Nullable="true" />
+          <Property Type="Int32" Name="prerequisite_course_id" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectAllDepartmentByLanguageID_Result2">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Department_Name" Nullable="true" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectAllCoursesjoinByylanugaeID1_Result1">
+          <Property Type="String" Name="course_name" Nullable="true" />
+          <Property Type="Int32" Name="prerequisite_course_id" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Cours">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Department_ID" Type="Int32" />
+          <Property Name="Course_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Course_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Course_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="languageID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Department_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="languageID" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Prerequisite">
+          <Key>
+            <PropertyRef Name="course_id" />
+          </Key>
+          <Property Name="course_id" Type="Int32" Nullable="false" />
+          <Property Name="prerequisite_course_id" Type="Int32" />
+          <Property Name="languageID" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="SelectAllCoursesBylanugaeID_Result3">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="Department_ID" Nullable="true" />
+          <Property Type="String" Name="Course_Name" Nullable="true" />
+          <Property Type="String" Name="Course_Code" Nullable="true" />
+          <Property Type="String" Name="Course_Description" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectAllCoursesjoinByylanugaeID_Result3">
+          <Property Type="String" Name="course_name" Nullable="true" />
+          <Property Type="Int32" Name="prerequisite_course_id" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectAllDepartmentByLanguageID_Result3">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Department_Name" Nullable="true" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="essensetestModelStoreContainer" CdmEntityContainer="essensetestEntities">
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="essensetestModelStoreContainer" CdmEntityContainer="essensetestEntities" >
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="essensetestModel.Cours">
               <MappingFragment StoreEntitySet="Courses">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Course_Preid" ColumnName="Course_Preid" />
-                <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
-                <ScalarProperty Name="Course_Name" ColumnName="Course_Name" />
-                <ScalarProperty Name="Course_Code" ColumnName="Course_Code" />
-                <ScalarProperty Name="Course_Description" ColumnName="Course_Description" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="languageID" ColumnName="languageID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Course_Description" ColumnName="Course_Description" />
+                <ScalarProperty Name="Course_Code" ColumnName="Course_Code" />
+                <ScalarProperty Name="Course_Name" ColumnName="Course_Name" />
+                <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="essensetestModel.Department">
               <MappingFragment StoreEntitySet="Department">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
-                <ScalarProperty Name="languageID" ColumnName="languageID" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="languageID" ColumnName="languageID" />
+                <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prerequisites">
+            <EntityTypeMapping TypeName="essensetestModel.Prerequisite">
+              <MappingFragment StoreEntitySet="Prerequisite">
+                <ScalarProperty Name="languageID" ColumnName="languageID" />
+                <ScalarProperty Name="prerequisite_course_id" ColumnName="prerequisite_course_id" />
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="InsertCourses" FunctionName="essensetestModel.Store.InsertCourses" />
           <FunctionImportMapping FunctionImportName="InsertDepartment" FunctionName="essensetestModel.Store.InsertDepartment" />
+          <FunctionImportMapping FunctionImportName="InsertPrerequisite" FunctionName="essensetestModel.Store.InsertPrerequisite" />
           <FunctionImportMapping FunctionImportName="SelectAllCoursesBylanugaeID" FunctionName="essensetestModel.Store.SelectAllCoursesBylanugaeID">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="essensetestModel.SelectAllCoursesBylanugaeID_Result">
+              <ComplexTypeMapping TypeName="essensetestModel.SelectAllCoursesBylanugaeID_Result3">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Course_Preid" ColumnName="Course_Preid" />
                 <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
                 <ScalarProperty Name="Course_Name" ColumnName="Course_Name" />
                 <ScalarProperty Name="Course_Code" ColumnName="Course_Code" />
@@ -164,9 +337,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectAllCoursesjoinByylanugaeID" FunctionName="essensetestModel.Store.SelectAllCoursesjoinByylanugaeID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="essensetestModel.SelectAllCoursesjoinByylanugaeID_Result3">
+                <ScalarProperty Name="course_name" ColumnName="course_name" />
+                <ScalarProperty Name="prerequisite_course_id" ColumnName="prerequisite_course_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="languageID" ColumnName="languageID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SelectAllDepartmentByLanguageID" FunctionName="essensetestModel.Store.SelectAllDepartmentByLanguageID">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="essensetestModel.SelectAllDepartmentByLanguageID_Result">
+              <ComplexTypeMapping TypeName="essensetestModel.SelectAllDepartmentByLanguageID_Result3">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
                 <ScalarProperty Name="languageID" ColumnName="languageID" />
@@ -174,9 +357,10 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectAllselfjoinCourses" FunctionName="essensetestModel.Store.SelectAllselfjoinCourses" />
+          <FunctionImportMapping FunctionImportName="updateCourses" FunctionName="essensetestModel.Store.updateCourses" />
         </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -190,7 +374,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

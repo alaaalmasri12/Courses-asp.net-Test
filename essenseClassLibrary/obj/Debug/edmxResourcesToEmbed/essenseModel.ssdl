@@ -5,7 +5,6 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Course_Preid" Type="int" />
     <Property Name="Department_ID" Type="int" />
     <Property Name="Course_Name" Type="nvarchar(max)" />
     <Property Name="Course_Code" Type="nvarchar(max)" />
@@ -22,8 +21,17 @@
     <Property Name="languageID" Type="int" />
     <Property Name="IsDeleted" Type="bit" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'essensetest.dbo.Prerequisite' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Prerequisite">
+    <Key>
+      <PropertyRef Name="course_id" />
+    </Key>
+    <Property Name="course_id" Type="int" Nullable="false" />
+    <Property Name="prerequisite_course_id" Type="int" />
+    <Property Name="languageID" Type="int" />
+  </EntityType>
   <Function Name="InsertCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="Course_Preid" Type="int" Mode="In" />
     <Parameter Name="Department_ID" Type="int" Mode="In" />
     <Parameter Name="Course_Name" Type="nvarchar(max)" Mode="In" />
     <Parameter Name="Course_Code" Type="nvarchar(max)" Mode="In" />
@@ -36,14 +44,43 @@
     <Parameter Name="languageId" Type="int" Mode="In" />
     <Parameter Name="isdeleted" Type="bit" Mode="In" />
   </Function>
+  <Function Name="InsertPrerequisite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="course_id" Type="int" Mode="In" />
+    <Parameter Name="prerequisite_course_id" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="languageID" Type="int" Mode="In" />
+  </Function>
   <Function Name="SelectAllCoursesBylanugaeID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="LanguageID" Type="int" Mode="In" />
   </Function>
+  <Function Name="SelectAllCoursesjoinByylanugaeID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LanguageID" Type="int" Mode="In" />
+  </Function>
   <Function Name="SelectAllDepartmentByLanguageID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="LanguageId" Type="int" Mode="In" />
+    <Parameter Name="LanguageID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SelectAllselfjoinCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LanguageID" Type="int" Mode="In" />
+    <Parameter Name="Course_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="updateCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+    <Parameter Name="Course_Preid" Type="int" Mode="In" />
+    <Parameter Name="Department_ID" Type="int" Mode="In" />
+    <Parameter Name="Course_Name" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Course_Code" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Course_Description" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IsDeleted" Type="bit" Mode="In" />
+    <Parameter Name="languageID" Type="int" Mode="In" />
   </Function>
   <EntityContainer Name="essensetestModelStoreContainer">
     <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prerequisite" EntityType="Self.Prerequisite" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Prerequisite].[course_id] AS [course_id], 
+[Prerequisite].[prerequisite_course_id] AS [prerequisite_course_id], 
+[Prerequisite].[languageID] AS [languageID]
+FROM [dbo].[Prerequisite] AS [Prerequisite]</DefiningQuery>
+    </EntitySet>
   </EntityContainer>
 </Schema>

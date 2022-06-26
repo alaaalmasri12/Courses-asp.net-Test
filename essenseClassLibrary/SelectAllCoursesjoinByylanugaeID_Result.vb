@@ -10,13 +10,11 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class Cours
+Partial Public Class SelectAllCoursesjoinByylanugaeID_Result
+    Public Property course_name As String
+    Public Property course_name1 As String
+    Public Property prerequisite_course_id As Nullable(Of Integer)
     Public Property ID As Integer
-    Public Property Department_ID As Nullable(Of Integer)
-    Public Property Course_Name As String
-    Public Property Course_Code As String
-    Public Property Course_Description As String
-    Public Property IsDeleted As Nullable(Of Boolean)
     Public Property languageID As Nullable(Of Integer)
 
 End Class

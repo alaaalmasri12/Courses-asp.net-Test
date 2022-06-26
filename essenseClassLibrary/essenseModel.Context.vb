@@ -27,8 +27,64 @@ Partial Public Class essensetestEntities
 
     Public Property Courses() As DbSet(Of Cours)
     Public Property Departments() As DbSet(Of Department)
+    Public Property Prerequisites() As DbSet(Of Prerequisite)
 
-    Public Overridable Function InsertCourses(course_Preid As Nullable(Of Integer), department_ID As Nullable(Of Integer), course_Name As String, course_Code As String, course_Description As String, isDeleted As Nullable(Of Boolean), languageID As Nullable(Of Integer)) As Integer
+    Public Overridable Function InsertCourses(department_ID As Nullable(Of Integer), course_Name As String, course_Code As String, course_Description As String, isDeleted As Nullable(Of Boolean), languageID As Nullable(Of Integer)) As Integer
+        Dim department_IDParameter As ObjectParameter = If(department_ID.HasValue, New ObjectParameter("Department_ID", department_ID), New ObjectParameter("Department_ID", GetType(Integer)))
+
+        Dim course_NameParameter As ObjectParameter = If(course_Name IsNot Nothing, New ObjectParameter("Course_Name", course_Name), New ObjectParameter("Course_Name", GetType(String)))
+
+        Dim course_CodeParameter As ObjectParameter = If(course_Code IsNot Nothing, New ObjectParameter("Course_Code", course_Code), New ObjectParameter("Course_Code", GetType(String)))
+
+        Dim course_DescriptionParameter As ObjectParameter = If(course_Description IsNot Nothing, New ObjectParameter("Course_Description", course_Description), New ObjectParameter("Course_Description", GetType(String)))
+
+        Dim isDeletedParameter As ObjectParameter = If(isDeleted.HasValue, New ObjectParameter("IsDeleted", isDeleted), New ObjectParameter("IsDeleted", GetType(Boolean)))
+
+        Dim languageIDParameter As ObjectParameter = If(languageID.HasValue, New ObjectParameter("languageID", languageID), New ObjectParameter("languageID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("InsertCourses", department_IDParameter, course_NameParameter, course_CodeParameter, course_DescriptionParameter, isDeletedParameter, languageIDParameter)
+    End Function
+
+    Public Overridable Function InsertDepartment(department_Name As String, languageId As Nullable(Of Integer), isdeleted As Nullable(Of Boolean)) As Integer
+        Dim department_NameParameter As ObjectParameter = If(department_Name IsNot Nothing, New ObjectParameter("Department_Name", department_Name), New ObjectParameter("Department_Name", GetType(String)))
+
+        Dim languageIdParameter As ObjectParameter = If(languageId.HasValue, New ObjectParameter("languageId", languageId), New ObjectParameter("languageId", GetType(Integer)))
+
+        Dim isdeletedParameter As ObjectParameter = If(isdeleted.HasValue, New ObjectParameter("isdeleted", isdeleted), New ObjectParameter("isdeleted", GetType(Boolean)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("InsertDepartment", department_NameParameter, languageIdParameter, isdeletedParameter)
+    End Function
+
+    Public Overridable Function InsertPrerequisite(course_id As Nullable(Of Integer), prerequisite_course_id As String, languageID As Nullable(Of Integer)) As Integer
+        Dim course_idParameter As ObjectParameter = If(course_id.HasValue, New ObjectParameter("course_id", course_id), New ObjectParameter("course_id", GetType(Integer)))
+
+        Dim prerequisite_course_idParameter As ObjectParameter = If(prerequisite_course_id IsNot Nothing, New ObjectParameter("prerequisite_course_id", prerequisite_course_id), New ObjectParameter("prerequisite_course_id", GetType(String)))
+
+        Dim languageIDParameter As ObjectParameter = If(languageID.HasValue, New ObjectParameter("languageID", languageID), New ObjectParameter("languageID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("InsertPrerequisite", course_idParameter, prerequisite_course_idParameter, languageIDParameter)
+    End Function
+
+
+
+    Public Overridable Function SelectAllCoursesjoinByylanugaeID(languageID As Nullable(Of Integer)) As ObjectResult(Of SelectAllCoursesjoinByylanugaeID_Result)
+        Dim languageIDParameter As ObjectParameter = If(languageID.HasValue, New ObjectParameter("LanguageID", languageID), New ObjectParameter("LanguageID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of SelectAllCoursesjoinByylanugaeID_Result)("SelectAllCoursesjoinByylanugaeID", languageIDParameter)
+    End Function
+
+
+    Public Overridable Function SelectAllselfjoinCourses(languageID As Nullable(Of Integer), course_id As Nullable(Of Integer)) As Integer
+        Dim languageIDParameter As ObjectParameter = If(languageID.HasValue, New ObjectParameter("LanguageID", languageID), New ObjectParameter("LanguageID", GetType(Integer)))
+
+        Dim course_idParameter As ObjectParameter = If(course_id.HasValue, New ObjectParameter("Course_id", course_id), New ObjectParameter("Course_id", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("SelectAllselfjoinCourses", languageIDParameter, course_idParameter)
+    End Function
+
+    Public Overridable Function updateCourses(iD As Nullable(Of Integer), course_Preid As Nullable(Of Integer), department_ID As Nullable(Of Integer), course_Name As String, course_Code As String, course_Description As String, isDeleted As Nullable(Of Boolean), languageID As Nullable(Of Integer)) As Integer
+        Dim iDParameter As ObjectParameter = If(iD.HasValue, New ObjectParameter("ID", iD), New ObjectParameter("ID", GetType(Integer)))
+
         Dim course_PreidParameter As ObjectParameter = If(course_Preid.HasValue, New ObjectParameter("Course_Preid", course_Preid), New ObjectParameter("Course_Preid", GetType(Integer)))
 
         Dim department_IDParameter As ObjectParameter = If(department_ID.HasValue, New ObjectParameter("Department_ID", department_ID), New ObjectParameter("Department_ID", GetType(Integer)))
@@ -43,29 +99,7 @@ Partial Public Class essensetestEntities
 
         Dim languageIDParameter As ObjectParameter = If(languageID.HasValue, New ObjectParameter("languageID", languageID), New ObjectParameter("languageID", GetType(Integer)))
 
-        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("InsertCourses", course_PreidParameter, department_IDParameter, course_NameParameter, course_CodeParameter, course_DescriptionParameter, isDeletedParameter, languageIDParameter)
-    End Function
-
-    Public Overridable Function InsertDepartment(department_Name As String, languageId As Nullable(Of Integer), isdeleted As Nullable(Of Boolean)) As Integer
-        Dim department_NameParameter As ObjectParameter = If(department_Name IsNot Nothing, New ObjectParameter("Department_Name", department_Name), New ObjectParameter("Department_Name", GetType(String)))
-
-        Dim languageIdParameter As ObjectParameter = If(languageId.HasValue, New ObjectParameter("languageId", languageId), New ObjectParameter("languageId", GetType(Integer)))
-
-        Dim isdeletedParameter As ObjectParameter = If(isdeleted.HasValue, New ObjectParameter("isdeleted", isdeleted), New ObjectParameter("isdeleted", GetType(Boolean)))
-
-        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("InsertDepartment", department_NameParameter, languageIdParameter, isdeletedParameter)
-    End Function
-
-    Public Overridable Function SelectAllCoursesBylanugaeID(languageID As Nullable(Of Integer)) As ObjectResult(Of SelectAllCoursesBylanugaeID_Result)
-        Dim languageIDParameter As ObjectParameter = If(languageID.HasValue, New ObjectParameter("LanguageID", languageID), New ObjectParameter("LanguageID", GetType(Integer)))
-
-        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of SelectAllCoursesBylanugaeID_Result)("SelectAllCoursesBylanugaeID", languageIDParameter)
-    End Function
-
-    Public Overridable Function SelectAllDepartmentByLanguageID(languageId As Nullable(Of Integer)) As ObjectResult(Of SelectAllDepartmentByLanguageID_Result)
-        Dim languageIdParameter As ObjectParameter = If(languageId.HasValue, New ObjectParameter("LanguageId", languageId), New ObjectParameter("LanguageId", GetType(Integer)))
-
-        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of SelectAllDepartmentByLanguageID_Result)("SelectAllDepartmentByLanguageID", languageIdParameter)
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("updateCourses", iDParameter, course_PreidParameter, department_IDParameter, course_NameParameter, course_CodeParameter, course_DescriptionParameter, isDeletedParameter, languageIDParameter)
     End Function
 
 End Class

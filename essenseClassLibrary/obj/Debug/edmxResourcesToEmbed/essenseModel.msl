@@ -4,34 +4,42 @@
     <EntitySetMapping Name="Courses">
       <EntityTypeMapping TypeName="essensetestModel.Cours">
         <MappingFragment StoreEntitySet="Courses">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Course_Preid" ColumnName="Course_Preid" />
-          <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
-          <ScalarProperty Name="Course_Name" ColumnName="Course_Name" />
-          <ScalarProperty Name="Course_Code" ColumnName="Course_Code" />
-          <ScalarProperty Name="Course_Description" ColumnName="Course_Description" />
-          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="languageID" ColumnName="languageID" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Course_Description" ColumnName="Course_Description" />
+          <ScalarProperty Name="Course_Code" ColumnName="Course_Code" />
+          <ScalarProperty Name="Course_Name" ColumnName="Course_Name" />
+          <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Departments">
       <EntityTypeMapping TypeName="essensetestModel.Department">
         <MappingFragment StoreEntitySet="Department">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
-          <ScalarProperty Name="languageID" ColumnName="languageID" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="languageID" ColumnName="languageID" />
+          <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prerequisites">
+      <EntityTypeMapping TypeName="essensetestModel.Prerequisite">
+        <MappingFragment StoreEntitySet="Prerequisite">
+          <ScalarProperty Name="languageID" ColumnName="languageID" />
+          <ScalarProperty Name="prerequisite_course_id" ColumnName="prerequisite_course_id" />
+          <ScalarProperty Name="course_id" ColumnName="course_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="InsertCourses" FunctionName="essensetestModel.Store.InsertCourses" />
     <FunctionImportMapping FunctionImportName="InsertDepartment" FunctionName="essensetestModel.Store.InsertDepartment" />
+    <FunctionImportMapping FunctionImportName="InsertPrerequisite" FunctionName="essensetestModel.Store.InsertPrerequisite" />
     <FunctionImportMapping FunctionImportName="SelectAllCoursesBylanugaeID" FunctionName="essensetestModel.Store.SelectAllCoursesBylanugaeID">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="essensetestModel.SelectAllCoursesBylanugaeID_Result">
+        <ComplexTypeMapping TypeName="essensetestModel.SelectAllCoursesBylanugaeID_Result3">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Course_Preid" ColumnName="Course_Preid" />
           <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
           <ScalarProperty Name="Course_Name" ColumnName="Course_Name" />
           <ScalarProperty Name="Course_Code" ColumnName="Course_Code" />
@@ -41,9 +49,19 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SelectAllCoursesjoinByylanugaeID" FunctionName="essensetestModel.Store.SelectAllCoursesjoinByylanugaeID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="essensetestModel.SelectAllCoursesjoinByylanugaeID_Result3">
+          <ScalarProperty Name="course_name" ColumnName="course_name" />
+          <ScalarProperty Name="prerequisite_course_id" ColumnName="prerequisite_course_id" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="languageID" ColumnName="languageID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SelectAllDepartmentByLanguageID" FunctionName="essensetestModel.Store.SelectAllDepartmentByLanguageID">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="essensetestModel.SelectAllDepartmentByLanguageID_Result">
+        <ComplexTypeMapping TypeName="essensetestModel.SelectAllDepartmentByLanguageID_Result3">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
           <ScalarProperty Name="languageID" ColumnName="languageID" />
@@ -51,5 +69,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SelectAllselfjoinCourses" FunctionName="essensetestModel.Store.SelectAllselfjoinCourses" />
+    <FunctionImportMapping FunctionImportName="updateCourses" FunctionName="essensetestModel.Store.updateCourses" />
   </EntityContainerMapping>
 </Mapping>

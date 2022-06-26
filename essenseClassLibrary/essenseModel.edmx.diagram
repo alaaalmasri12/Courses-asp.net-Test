@@ -5,8 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="fa90480a916a444e89ac97dc63d5e51c" Name="Diagram1">
-        <EntityTypeShape EntityType="essensetestModel.Cours" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="essensetestModel.Department" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="essensetestModel.Cours" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="essensetestModel.Department" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="essensetestModel.Prerequisite" Width="1.5" PointX="2.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -80,9 +80,9 @@
                           courseTable.empty();
                           if (data.length > 0) {
                               $("#CoruseDetailsResult").show();
-                              $(data).each(function (index, emp) {
-                                  courseTable.append('<tr><td>' + emp.Course_Preid + '</td><td>'
-                                      + emp.Course_Name + '</td></tr>');
+                              $(data).each(function (index, pre) {
+                                  courseTable.append('<tr><td>' + pre.Course_Preid + '</td><td>'
+                                      + pre.Course_Name1 + '</td></tr>');
                               });
                           }
                           else {

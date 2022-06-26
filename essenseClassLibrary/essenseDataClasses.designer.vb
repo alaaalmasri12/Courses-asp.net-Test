@@ -81,34 +81,34 @@ Partial Public Class essenseDataClassesDataContext
 		Dim result As IExecuteResult = Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod,MethodInfo), iD, course_Preid, department_ID, course_Name, course_Code, course_Description, isDeleted, languageID)
 		Return CType(result.ReturnValue,Integer)
 	End Function
-	
-	<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.SelectAllselfjoinCourses", IsComposable:=true)>  _
+
+	<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.SelectAllselfjoinCourses", IsComposable:=True)>
 	Public Function SelectAllselfjoinCourses(<Global.System.Data.Linq.Mapping.ParameterAttribute(Name:="LanguageID", DbType:="Int")> ByVal languageID As System.Nullable(Of Integer), <Global.System.Data.Linq.Mapping.ParameterAttribute(Name:="Course_id", DbType:="Int")> ByVal course_id As System.Nullable(Of Integer)) As Object
-		Return CType(Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod,MethodInfo), languageID, course_id).ReturnValue,Object)
+		Return CType(Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod, MethodInfo), languageID, course_id).ReturnValue, Object)
 	End Function
-	
-	<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.SelectAllCoursesjoinByylanugaeID")>  _
+
+	<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.SelectAllCoursesjoinByylanugaeID")>
 	Public Function SelectAllCoursesjoinByylanugaeID(<Global.System.Data.Linq.Mapping.ParameterAttribute(Name:="LanguageID", DbType:="Int")> ByVal languageID As System.Nullable(Of Integer)) As ISingleResult(Of SelectAllCoursesjoinByylanugaeIDResult)
-		Dim result As IExecuteResult = Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod,MethodInfo), languageID)
-		Return CType(result.ReturnValue,ISingleResult(Of SelectAllCoursesjoinByylanugaeIDResult))
+		Dim result As IExecuteResult = Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod, MethodInfo), languageID)
+		Return CType(result.ReturnValue, ISingleResult(Of SelectAllCoursesjoinByylanugaeIDResult))
 	End Function
-	
-	<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.SelectAllDepartmentByLanguageID")>  _
+
+	<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.SelectAllDepartmentByLanguageID")>
 	Public Function SelectAllDepartmentByLanguageID1(<Global.System.Data.Linq.Mapping.ParameterAttribute(Name:="LanguageID", DbType:="Int")> ByVal languageID As System.Nullable(Of Integer)) As ISingleResult(Of SelectAllDepartmentByLanguageIDResult1)
-		Dim result As IExecuteResult = Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod,MethodInfo), languageID)
-		Return CType(result.ReturnValue,ISingleResult(Of SelectAllDepartmentByLanguageIDResult1))
+		Dim result As IExecuteResult = Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod, MethodInfo), languageID)
+		Return CType(result.ReturnValue, ISingleResult(Of SelectAllDepartmentByLanguageIDResult1))
 	End Function
-	
-	<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.InsertCourses")>  _
+
+	<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.InsertCourses")>
 	Public Function InsertCourses(<Global.System.Data.Linq.Mapping.ParameterAttribute(Name:="Department_ID", DbType:="Int")> ByVal department_ID As System.Nullable(Of Integer), <Global.System.Data.Linq.Mapping.ParameterAttribute(Name:="Course_Name", DbType:="NVarChar(MAX)")> ByVal course_Name As String, <Global.System.Data.Linq.Mapping.ParameterAttribute(Name:="Course_Code", DbType:="NVarChar(MAX)")> ByVal course_Code As String, <Global.System.Data.Linq.Mapping.ParameterAttribute(Name:="Course_Description", DbType:="NVarChar(MAX)")> ByVal course_Description As String, <Global.System.Data.Linq.Mapping.ParameterAttribute(Name:="IsDeleted", DbType:="Bit")> ByVal isDeleted As System.Nullable(Of Boolean), <Global.System.Data.Linq.Mapping.ParameterAttribute(DbType:="Int")> ByVal languageID As System.Nullable(Of Integer)) As Integer
-		Dim result As IExecuteResult = Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod,MethodInfo), department_ID, course_Name, course_Code, course_Description, isDeleted, languageID)
-		Return CType(result.ReturnValue,Integer)
+		Dim result As IExecuteResult = Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod, MethodInfo), department_ID, course_Name, course_Code, course_Description, isDeleted, languageID)
+		Return CType(result.ReturnValue, Integer)
 	End Function
-	
-	<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.InsertPrerequisite")>  _
+
+	<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.InsertPrerequisite")>
 	Public Function InsertPrerequisite(<Global.System.Data.Linq.Mapping.ParameterAttribute(DbType:="Int")> ByVal course_id As System.Nullable(Of Integer), <Global.System.Data.Linq.Mapping.ParameterAttribute(DbType:="NVarChar(MAX)")> ByVal prerequisite_course_id As String, <Global.System.Data.Linq.Mapping.ParameterAttribute(DbType:="Int")> ByVal languageID As System.Nullable(Of Integer)) As Integer
-		Dim result As IExecuteResult = Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod,MethodInfo), course_id, prerequisite_course_id, languageID)
-		Return CType(result.ReturnValue,Integer)
+		Dim result As IExecuteResult = Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod, MethodInfo), course_id, prerequisite_course_id, languageID)
+		Return CType(result.ReturnValue, Integer)
 	End Function
 End Class
 

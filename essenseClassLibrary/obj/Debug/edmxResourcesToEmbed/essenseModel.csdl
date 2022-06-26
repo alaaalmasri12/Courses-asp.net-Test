@@ -1,11 +1,151 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="essensetestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="essensetestEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Courses" EntityType="essensetestModel.Cours" />
+    <EntitySet Name="Departments" EntityType="essensetestModel.Department" />
+    <EntitySet Name="Prerequisites" EntityType="essensetestModel.Prerequisite" />
+    <FunctionImport Name="InsertCourses">
+      <Parameter Name="Department_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Course_Name" Mode="In" Type="String" />
+      <Parameter Name="Course_Code" Mode="In" Type="String" />
+      <Parameter Name="Course_Description" Mode="In" Type="String" />
+      <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
+      <Parameter Name="languageID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertDepartment">
+      <Parameter Name="Department_Name" Mode="In" Type="String" />
+      <Parameter Name="languageId" Mode="In" Type="Int32" />
+      <Parameter Name="isdeleted" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="InsertPrerequisite">
+      <Parameter Name="course_id" Mode="In" Type="Int32" />
+      <Parameter Name="prerequisite_course_id" Mode="In" Type="String" />
+      <Parameter Name="languageID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SelectAllCoursesBylanugaeID" ReturnType="Collection(essensetestModel.SelectAllCoursesBylanugaeID_Result3)">
+      <Parameter Name="LanguageID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SelectAllCoursesjoinByylanugaeID" ReturnType="Collection(essensetestModel.SelectAllCoursesjoinByylanugaeID_Result3)">
+      <Parameter Name="LanguageID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SelectAllDepartmentByLanguageID" ReturnType="Collection(essensetestModel.SelectAllDepartmentByLanguageID_Result3)">
+      <Parameter Name="LanguageID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SelectAllselfjoinCourses">
+      <Parameter Name="LanguageID" Mode="In" Type="Int32" />
+      <Parameter Name="Course_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="updateCourses">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="Course_Preid" Mode="In" Type="Int32" />
+      <Parameter Name="Department_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Course_Name" Mode="In" Type="String" />
+      <Parameter Name="Course_Code" Mode="In" Type="String" />
+      <Parameter Name="Course_Description" Mode="In" Type="String" />
+      <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
+      <Parameter Name="languageID" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="SelectAllCoursesBylanugaeID_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="Course_Preid" Nullable="true" />
+    <Property Type="Int32" Name="Department_ID" Nullable="true" />
+    <Property Type="String" Name="Course_Name" Nullable="true" />
+    <Property Type="String" Name="Course_Code" Nullable="true" />
+    <Property Type="String" Name="Course_Description" Nullable="true" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllDepartmentByLanguageID_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Department_Name" Nullable="true" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllCoursesjoinByylanugaeID_Result">
+    <Property Type="String" Name="course_name" Nullable="true" />
+    <Property Type="String" Name="course_name1" Nullable="true" />
+    <Property Type="Int32" Name="prerequisite_course_id" Nullable="true" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllCoursesBylanugaeID1_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="Department_ID" Nullable="true" />
+    <Property Type="String" Name="Course_Name" Nullable="true" />
+    <Property Type="String" Name="Course_Code" Nullable="true" />
+    <Property Type="String" Name="Course_Description" Nullable="true" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllCoursesjoinByylanugaeID1_Result">
+    <Property Type="String" Name="course_name" Nullable="true" />
+    <Property Type="String" Name="course_name1" Nullable="true" />
+    <Property Type="Int32" Name="prerequisite_course_id" Nullable="true" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllDepartmentByLanguageID1_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Department_Name" Nullable="true" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllCoursesBylanugaeID_Result1">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="Department_ID" Nullable="true" />
+    <Property Type="String" Name="Course_Name" Nullable="true" />
+    <Property Type="String" Name="Course_Code" Nullable="true" />
+    <Property Type="String" Name="Course_Description" Nullable="true" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllCoursesjoinByylanugaeID_Result1">
+    <Property Type="String" Name="course_name" Nullable="true" />
+    <Property Type="String" Name="course_name1" Nullable="true" />
+    <Property Type="Int32" Name="prerequisite_course_id" Nullable="true" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllDepartmentByLanguageID_Result1">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Department_Name" Nullable="true" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllCoursesBylanugaeID_Result2">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="Department_ID" Nullable="true" />
+    <Property Type="String" Name="Course_Name" Nullable="true" />
+    <Property Type="String" Name="Course_Code" Nullable="true" />
+    <Property Type="String" Name="Course_Description" Nullable="true" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllCoursesjoinByylanugaeID_Result2">
+    <Property Type="String" Name="course_name" Nullable="true" />
+    <Property Type="String" Name="course_name1" Nullable="true" />
+    <Property Type="Int32" Name="prerequisite_course_id" Nullable="true" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllDepartmentByLanguageID_Result2">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Department_Name" Nullable="true" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllCoursesjoinByylanugaeID1_Result1">
+    <Property Type="String" Name="course_name" Nullable="true" />
+    <Property Type="Int32" Name="prerequisite_course_id" Nullable="true" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+  </ComplexType>
   <EntityType Name="Cours">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Course_Preid" Type="Int32" />
     <Property Name="Department_ID" Type="Int32" />
     <Property Name="Course_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Course_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -22,33 +162,16 @@
     <Property Name="languageID" Type="Int32" />
     <Property Name="IsDeleted" Type="Boolean" />
   </EntityType>
-  <EntityContainer Name="essensetestEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Courses" EntityType="Self.Cours" />
-    <EntitySet Name="Departments" EntityType="Self.Department" />
-    <FunctionImport Name="InsertCourses">
-      <Parameter Name="Course_Preid" Mode="In" Type="Int32" />
-      <Parameter Name="Department_ID" Mode="In" Type="Int32" />
-      <Parameter Name="Course_Name" Mode="In" Type="String" />
-      <Parameter Name="Course_Code" Mode="In" Type="String" />
-      <Parameter Name="Course_Description" Mode="In" Type="String" />
-      <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
-      <Parameter Name="languageID" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="InsertDepartment">
-      <Parameter Name="Department_Name" Mode="In" Type="String" />
-      <Parameter Name="languageId" Mode="In" Type="Int32" />
-      <Parameter Name="isdeleted" Mode="In" Type="Boolean" />
-    </FunctionImport>
-    <FunctionImport Name="SelectAllCoursesBylanugaeID" ReturnType="Collection(essensetestModel.SelectAllCoursesBylanugaeID_Result)">
-      <Parameter Name="LanguageID" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="SelectAllDepartmentByLanguageID" ReturnType="Collection(essensetestModel.SelectAllDepartmentByLanguageID_Result)">
-      <Parameter Name="LanguageId" Mode="In" Type="Int32" />
-    </FunctionImport>
-  </EntityContainer>
-  <ComplexType Name="SelectAllCoursesBylanugaeID_Result">
+  <EntityType Name="Prerequisite">
+    <Key>
+      <PropertyRef Name="course_id" />
+    </Key>
+    <Property Name="course_id" Type="Int32" Nullable="false" />
+    <Property Name="prerequisite_course_id" Type="Int32" />
+    <Property Name="languageID" Type="Int32" />
+  </EntityType>
+  <ComplexType Name="SelectAllCoursesBylanugaeID_Result3">
     <Property Type="Int32" Name="ID" Nullable="false" />
-    <Property Type="Int32" Name="Course_Preid" Nullable="true" />
     <Property Type="Int32" Name="Department_ID" Nullable="true" />
     <Property Type="String" Name="Course_Name" Nullable="true" />
     <Property Type="String" Name="Course_Code" Nullable="true" />
@@ -56,7 +179,13 @@
     <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
     <Property Type="Int32" Name="languageID" Nullable="true" />
   </ComplexType>
-  <ComplexType Name="SelectAllDepartmentByLanguageID_Result">
+  <ComplexType Name="SelectAllCoursesjoinByylanugaeID_Result3">
+    <Property Type="String" Name="course_name" Nullable="true" />
+    <Property Type="Int32" Name="prerequisite_course_id" Nullable="true" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllDepartmentByLanguageID_Result3">
     <Property Type="Int32" Name="ID" Nullable="false" />
     <Property Type="String" Name="Department_Name" Nullable="true" />
     <Property Type="Int32" Name="languageID" Nullable="true" />
