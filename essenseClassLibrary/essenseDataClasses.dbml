@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="essensetest" Class="essenseDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=MSI;Initial Catalog=essensetest;Integrated Security=True;Persist Security Info=True" SettingsObjectName="essenseClassLibrary.My.MySettings" SettingsPropertyName="essensetestConnectionString1" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.InsertDepartment" Method="InsertDepartment">
+    <Parameter Name="Department_Name" Parameter="department_Name" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="languageId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="isdeleted" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SelectAllCoursesBylanugaeID" Method="SelectAllCoursesBylanugaeID">
+    <Parameter Name="LanguageID" Parameter="languageID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SelectAllCoursesBylanugaeIDResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Course_Preid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Department_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Course_Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Course_Code" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Course_Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="languageID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SelectAllDepartmentByLanguageID" Method="SelectAllDepartmentByLanguageID">
+    <Parameter Name="LanguageId" Parameter="languageId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SelectAllDepartmentByLanguageIDResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Department_Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="languageID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.updateCourses" Method="updateCourses">
+    <Parameter Name="ID" Parameter="iD" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Course_Preid" Parameter="course_Preid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Department_ID" Parameter="department_ID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Course_Name" Parameter="course_Name" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Course_Code" Parameter="course_Code" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Course_Description" Parameter="course_Description" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="IsDeleted" Parameter="isDeleted" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="languageID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SelectAllselfjoinCourses" Method="SelectAllselfjoinCourses" IsComposable="true">
+    <Parameter Name="LanguageID" Parameter="languageID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Course_id" Parameter="course_id" Type="System.Int32" DbType="Int" />
+    <Return Type="object" />
+  </Function>
+  <Function Name="dbo.SelectAllCoursesjoinByylanugaeID" Method="SelectAllCoursesjoinByylanugaeID">
+    <Parameter Name="LanguageID" Parameter="languageID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SelectAllCoursesjoinByylanugaeIDResult">
+      <Column Name="course_name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="course_name1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="prerequisite_course_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="languageID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SelectAllDepartmentByLanguageID" Method="SelectAllDepartmentByLanguageID1">
+    <Parameter Name="LanguageID" Parameter="languageID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SelectAllDepartmentByLanguageIDResult1">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Department_Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="languageID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.InsertCourses" Method="InsertCourses">
+    <Parameter Name="Department_ID" Parameter="department_ID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Course_Name" Parameter="course_Name" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Course_Code" Parameter="course_Code" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Course_Description" Parameter="course_Description" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="IsDeleted" Parameter="isDeleted" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="languageID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InsertPrerequisite" Method="InsertPrerequisite">
+    <Parameter Name="course_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="prerequisite_course_id" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="languageID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

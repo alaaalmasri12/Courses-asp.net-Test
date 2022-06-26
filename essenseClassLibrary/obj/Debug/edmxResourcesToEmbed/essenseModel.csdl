@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="essensetestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cours">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Course_Preid" Type="Int32" />
+    <Property Name="Department_ID" Type="Int32" />
+    <Property Name="Course_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Course_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Course_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="languageID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Department_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="languageID" Type="Int32" />
+    <Property Name="IsDeleted" Type="Boolean" />
+  </EntityType>
+  <EntityContainer Name="essensetestEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Courses" EntityType="Self.Cours" />
+    <EntitySet Name="Departments" EntityType="Self.Department" />
+    <FunctionImport Name="InsertCourses">
+      <Parameter Name="Course_Preid" Mode="In" Type="Int32" />
+      <Parameter Name="Department_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Course_Name" Mode="In" Type="String" />
+      <Parameter Name="Course_Code" Mode="In" Type="String" />
+      <Parameter Name="Course_Description" Mode="In" Type="String" />
+      <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
+      <Parameter Name="languageID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertDepartment">
+      <Parameter Name="Department_Name" Mode="In" Type="String" />
+      <Parameter Name="languageId" Mode="In" Type="Int32" />
+      <Parameter Name="isdeleted" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="SelectAllCoursesBylanugaeID" ReturnType="Collection(essensetestModel.SelectAllCoursesBylanugaeID_Result)">
+      <Parameter Name="LanguageID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SelectAllDepartmentByLanguageID" ReturnType="Collection(essensetestModel.SelectAllDepartmentByLanguageID_Result)">
+      <Parameter Name="LanguageId" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="SelectAllCoursesBylanugaeID_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="Course_Preid" Nullable="true" />
+    <Property Type="Int32" Name="Department_ID" Nullable="true" />
+    <Property Type="String" Name="Course_Name" Nullable="true" />
+    <Property Type="String" Name="Course_Code" Nullable="true" />
+    <Property Type="String" Name="Course_Description" Nullable="true" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SelectAllDepartmentByLanguageID_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Department_Name" Nullable="true" />
+    <Property Type="Int32" Name="languageID" Nullable="true" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+  </ComplexType>
+</Schema>

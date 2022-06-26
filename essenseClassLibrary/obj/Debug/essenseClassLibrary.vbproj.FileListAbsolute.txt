@@ -1,0 +1,14 @@
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\bin\Debug\essenseClassLibrary.dll.config
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\bin\Debug\essenseClassLibrary.dll
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\bin\Debug\essenseClassLibrary.pdb
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\bin\Debug\essenseClassLibrary.xml
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\bin\Debug\EntityFramework.dll
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\bin\Debug\EntityFramework.xml
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\obj\Debug\essenseClassLibrary.Resources.resources
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\obj\Debug\essenseClassLibrary.vbproj.GenerateResource.cache
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\obj\Debug\essenseClassLibrary.vbproj.CoreCompileInputs.cache
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\obj\Debug\essenseClassLibrary.vbproj.CopyComplete
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\obj\Debug\essenseClassLibrary.dll
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\obj\Debug\essenseClassLibrary.xml
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\obj\Debug\essenseClassLibrary.pdb
+C:\PROJECTS\EssesnceTEST\essenseClassLibrary\obj\Debug\essenseClassLibrary.vbproj.AssemblyReference.cache

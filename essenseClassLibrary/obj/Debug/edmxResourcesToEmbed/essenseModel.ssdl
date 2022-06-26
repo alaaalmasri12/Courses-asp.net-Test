@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="essensetestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Courses">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Course_Preid" Type="int" />
+    <Property Name="Department_ID" Type="int" />
+    <Property Name="Course_Name" Type="nvarchar(max)" />
+    <Property Name="Course_Code" Type="nvarchar(max)" />
+    <Property Name="Course_Description" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="languageID" Type="int" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Department_Name" Type="nvarchar(max)" />
+    <Property Name="languageID" Type="int" />
+    <Property Name="IsDeleted" Type="bit" />
+  </EntityType>
+  <Function Name="InsertCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Course_Preid" Type="int" Mode="In" />
+    <Parameter Name="Department_ID" Type="int" Mode="In" />
+    <Parameter Name="Course_Name" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Course_Code" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Course_Description" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IsDeleted" Type="bit" Mode="In" />
+    <Parameter Name="languageID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="InsertDepartment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Department_Name" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="languageId" Type="int" Mode="In" />
+    <Parameter Name="isdeleted" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="SelectAllCoursesBylanugaeID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LanguageID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SelectAllDepartmentByLanguageID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LanguageId" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="essensetestModelStoreContainer">
+    <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

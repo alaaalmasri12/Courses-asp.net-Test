@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="essensetestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Course_Preid" Type="int" />
+          <Property Name="Department_ID" Type="int" />
+          <Property Name="Course_Name" Type="nvarchar(max)" />
+          <Property Name="Course_Code" Type="nvarchar(max)" />
+          <Property Name="Course_Description" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="languageID" Type="int" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Department_Name" Type="nvarchar(max)" />
+          <Property Name="languageID" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <Function Name="InsertCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Course_Preid" Type="int" Mode="In" />
+          <Parameter Name="Department_ID" Type="int" Mode="In" />
+          <Parameter Name="Course_Name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Course_Code" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Course_Description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IsDeleted" Type="bit" Mode="In" />
+          <Parameter Name="languageID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertDepartment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Department_Name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="languageId" Type="int" Mode="In" />
+          <Parameter Name="isdeleted" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SelectAllCoursesBylanugaeID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LanguageID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SelectAllDepartmentByLanguageID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LanguageId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="essensetestModelStoreContainer">
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="essensetestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cours">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Course_Preid" Type="Int32" />
+          <Property Name="Department_ID" Type="Int32" />
+          <Property Name="Course_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Course_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Course_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="languageID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Department_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="languageID" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="essensetestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="Self.Cours" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <FunctionImport Name="InsertCourses">
+            <Parameter Name="Course_Preid" Mode="In" Type="Int32" />
+            <Parameter Name="Department_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Course_Name" Mode="In" Type="String" />
+            <Parameter Name="Course_Code" Mode="In" Type="String" />
+            <Parameter Name="Course_Description" Mode="In" Type="String" />
+            <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
+            <Parameter Name="languageID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertDepartment">
+            <Parameter Name="Department_Name" Mode="In" Type="String" />
+            <Parameter Name="languageId" Mode="In" Type="Int32" />
+            <Parameter Name="isdeleted" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SelectAllCoursesBylanugaeID" ReturnType="Collection(essensetestModel.SelectAllCoursesBylanugaeID_Result)">
+            <Parameter Name="LanguageID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SelectAllDepartmentByLanguageID" ReturnType="Collection(essensetestModel.SelectAllDepartmentByLanguageID_Result)">
+            <Parameter Name="LanguageId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SelectAllCoursesBylanugaeID_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="Course_Preid" Nullable="true" />
+          <Property Type="Int32" Name="Department_ID" Nullable="true" />
+          <Property Type="String" Name="Course_Name" Nullable="true" />
+          <Property Type="String" Name="Course_Code" Nullable="true" />
+          <Property Type="String" Name="Course_Description" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectAllDepartmentByLanguageID_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Department_Name" Nullable="true" />
+          <Property Type="Int32" Name="languageID" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="essensetestModelStoreContainer" CdmEntityContainer="essensetestEntities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="essensetestModel.Cours">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Course_Preid" ColumnName="Course_Preid" />
+                <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
+                <ScalarProperty Name="Course_Name" ColumnName="Course_Name" />
+                <ScalarProperty Name="Course_Code" ColumnName="Course_Code" />
+                <ScalarProperty Name="Course_Description" ColumnName="Course_Description" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="languageID" ColumnName="languageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="essensetestModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+                <ScalarProperty Name="languageID" ColumnName="languageID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InsertCourses" FunctionName="essensetestModel.Store.InsertCourses" />
+          <FunctionImportMapping FunctionImportName="InsertDepartment" FunctionName="essensetestModel.Store.InsertDepartment" />
+          <FunctionImportMapping FunctionImportName="SelectAllCoursesBylanugaeID" FunctionName="essensetestModel.Store.SelectAllCoursesBylanugaeID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="essensetestModel.SelectAllCoursesBylanugaeID_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Course_Preid" ColumnName="Course_Preid" />
+                <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
+                <ScalarProperty Name="Course_Name" ColumnName="Course_Name" />
+                <ScalarProperty Name="Course_Code" ColumnName="Course_Code" />
+                <ScalarProperty Name="Course_Description" ColumnName="Course_Description" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="languageID" ColumnName="languageID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectAllDepartmentByLanguageID" FunctionName="essensetestModel.Store.SelectAllDepartmentByLanguageID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="essensetestModel.SelectAllDepartmentByLanguageID_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+                <ScalarProperty Name="languageID" ColumnName="languageID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
